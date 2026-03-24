@@ -3,101 +3,40 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>שאלון BABYMONSTER - מי את?</title>
+    <title>שאלון BABYMONSTER - by ZOHAR</title>
     <style>
-        :root {
-            --red: #e60012;
-            --black: #1a1a1a;
-            --white: #ffffff;
-            --gray: #f4f4f4;
-        }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: var(--black);
-            color: var(--white);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            margin: 0;
-            padding: 20px;
-        }
-
-        #quiz-container {
-            background-color: var(--white);
-            color: var(--black);
-            padding: 2rem;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(230, 0, 18, 0.4);
-            width: 100%;
-            max-width: 500px;
-            text-align: center;
-        }
-
-        h1 { color: var(--red); margin-top: 0; }
+        :root { --red: #e60012; --black: #1a1a1a; --white: #ffffff; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: var(--black); color: var(--white); display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; padding: 20px; text-align: center; }
+        #quiz-container { background-color: var(--white); color: var(--black); padding: 2rem; border-radius: 15px; width: 100%; max-width: 450px; box-shadow: 0 10px 30px rgba(230, 0, 18, 0.4); }
         
-        .question { font-size: 1.3rem; margin-bottom: 1.5rem; font-weight: bold; min-height: 60px; }
-
-        .options { display: grid; gap: 12px; }
-
-        button {
-            background-color: var(--gray);
-            border: 2px solid #ddd;
-            padding: 14px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 1rem;
-            font-weight: 600;
-            transition: all 0.2s ease-in-out;
-        }
-
-        button:hover {
-            background-color: var(--red);
-            color: var(--white);
-            border-color: var(--red);
-            transform: translateY(-2px);
-        }
-
+        .main-title { color: var(--red); margin-bottom: 5px; font-size: 1.8rem; font-weight: bold; }
+        .author-tag { color: var(--red); font-size: 1rem; margin-top: 0; margin-bottom: 25px; font-weight: bold; text-transform: uppercase; }
+        
+        .question { font-size: 1.2rem; font-weight: bold; margin-bottom: 20px; min-height: 50px; }
+        .options { display: grid; gap: 10px; }
+        button { background-color: #f0f0f0; border: 2px solid #ddd; padding: 12px; border-radius: 8px; cursor: pointer; font-size: 1rem; transition: 0.2s; font-family: inherit; }
+        button:hover { background-color: var(--red); color: white; border-color: var(--red); transform: translateY(-2px); }
+        
         #result { display: none; }
-        
-        .member-img {
-            width: 220px;
-            height: 220px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 5px solid var(--red);
-            margin: 20px auto;
-            display: block;
-            background-color: #eee;
-        }
-
-        .member-name { font-size: 2.5rem; color: var(--red); font-weight: bold; margin-top: 10px; }
-        
-        #member-desc { font-size: 1.2rem; line-height: 1.5; margin: 15px 0; }
-
-        .restart-btn {
-            margin-top: 20px;
-            background-color: var(--black);
-            color: var(--white);
-            width: 100%;
-        }
-
-        #progress { font-size: 0.9rem; color: #666; margin-bottom: 5px; }
+        .member-img { width: 220px; height: 220px; border-radius: 50%; object-fit: cover; border: 5px solid var(--red); margin: 20px auto; display: block; background-color: #eee; }
+        .member-name { font-size: 2.5rem; color: var(--red); font-weight: bold; }
+        .restart-btn { margin-top: 20px; background-color: var(--black); color: white; width: 100%; font-weight: bold; }
+        #progress { font-size: 0.8rem; color: #888; margin-bottom: 5px; }
     </style>
 </head>
 <body>
 
 <div id="quiz-container">
     <div id="quiz">
-        <h1>BABYMONSTER Quiz</h1>
-        <p id="progress">שאלה 1 מתוך 5</p>
-        <div class="question" id="question-text">טוען שאלון...</div>
+        <div class="main-title">לאיזה ממברית את הכי דומה?</div>
+        <div class="author-tag">by ZOHAR</div>
+        <p id="progress">שאלה 1 מתוך 3</p>
+        <div class="question" id="question-text">טוען...</div>
         <div class="options" id="options-container"></div>
     </div>
 
     <div id="result">
-        <h1>את הכי דומה ל...</h1>
+        <h2>התוצאה שלך:</h2>
         <img id="member-pic" src="" alt="Member" class="member-img">
         <div class="member-name" id="member-res"></div>
         <p id="member-desc"></p>
@@ -107,127 +46,4 @@
 
 <script>
     const questions = [
-        {
-            q: "מה התפקיד המועדף עלייך בלהקה?",
-            options: [
-                { text: "ראפרית עוצמתית", member: "Ahyeon" },
-                { text: "ווקאליסטית מרגשת", member: "Rora" },
-                { text: "מכונת ריקודים", member: "Asa" },
-                { text: "הוויזואלית המתוקה", member: "Chiquita" }
-            ]
-        },
-        {
-            q: "איך החברים מתארים אותך?",
-            options: [
-                { text: "פרפקציוניסטית ומוכשרת בהכל", member: "Ahyeon" },
-                { text: "שקטה, אלגנטית וחכמה", member: "Rami" },
-                { text: "מצחיקה ואנרגטית", member: "Pharita" },
-                { text: "קולית ומסתורית", member: "Ruka" }
-            ]
-        },
-        {
-            q: "מה הסטייל האהוב עלייך?",
-            options: [
-                { text: "סטריט-וור (Streetwear) קשוח", member: "Ruka" },
-                { text: "שמלות יוקרתיות ועדינות", member: "Pharita" },
-                { text: "בגדים נוחים אבל מגניבים", member: "Asa" },
-                { text: "טרנדי ונועז", member: "Chiquita" }
-            ]
-        },
-        {
-            q: "מה הדבר שהכי חשוב לך בבמה?",
-            options: [
-                { text: "דיוק בתנועות הריקוד", member: "Asa" },
-                { text: "להעביר רגש בשירה", member: "Rora" },
-                { text: "נוכחות וכריזמה מתפרצת", member: "Ahyeon" },
-                { text: "ביטחון עצמי וחיוך", member: "Rami" }
-            ]
-        },
-        {
-            q: "מה המאכל המועדף עלייך?",
-            options: [
-                { text: "אוכל קוריאני מסורתי", member: "Rora" },
-                { text: "קינוחים ומתוקים", member: "Chiquita" },
-                { text: "סושי או אוכל יפני", member: "Ruka" },
-                { text: "הכל, אני לא בררנית!", member: "Pharita" }
-            ]
-        }
-    ];
-
-    const memberData = {
-        "Ahyeon": {
-            img: "https://dbkpop.com/wp-content/uploads/2023/01/babymonster_ahyeon_profile.jpg",
-            desc: "את ה-'All-Rounder'! יש לך כישרון בהכל ואת תמיד מרכז תשומת הלב."
-        },
-        "Ruka": {
-            img: "https://dbkpop.com/wp-content/uploads/2023/02/babymonster_ruka_profile.jpg",
-            desc: "את מגניבה, בוגרת ויש לך סטייל שאי אפשר להתעלם ממנו."
-        },
-        "Chiquita": {
-            img: "https://dbkpop.com/wp-content/uploads/2023/01/babymonster_chiquita_profile.jpg",
-            desc: "את ה'מאקנה' האנרגטית! את מלאה בשמחת חיים וכישרון טבעי."
-        },
-        "Asa": {
-            img: "https://dbkpop.com/wp-content/uploads/2023/01/babymonster_asa_profile.jpg",
-            desc: "את חדה, מוכשרת ויודעת לעבוד קשה כדי להגיע לתוצאה מושלמת."
-        },
-        "Pharita": {
-            img: "https://dbkpop.com/wp-content/uploads/2023/02/babymonster_pharita_profile.jpg",
-            desc: "את אלגנטית, עדינה ובעלת קול של מלאך."
-        },
-        "Rora": {
-            img: "https://dbkpop.com/wp-content/uploads/2023/01/babymonster_rora_profile.jpg",
-            desc: "את קלאסית, רגועה ומביאה המון עומק לכל דבר שאת עושה."
-        },
-        "Rami": {
-            img: "https://dbkpop.com/wp-content/uploads/2023/01/babymonster_rami_profile.jpg",
-            desc: "את ווקאליסטית עוצמתית עם אישיות ייחודית וממגנטת."
-        }
-    };
-
-    let currentQuestion = 0;
-    let scores = {};
-
-    function loadQuestion() {
-        const qData = questions[currentQuestion];
-        document.getElementById("question-text").innerText = qData.q;
-        document.getElementById("progress").innerText = `שאלה ${currentQuestion + 1} מתוך ${questions.length}`;
-        
-        const optionsDiv = document.getElementById("options-container");
-        optionsDiv.innerHTML = "";
-
-        qData.options.forEach(opt => {
-            const btn = document.createElement("button");
-            btn.innerText = opt.text;
-            btn.onclick = () => nextQuestion(opt.member);
-            optionsDiv.appendChild(btn);
-        });
-    }
-
-    function nextQuestion(member) {
-        scores[member] = (scores[member] || 0) + 1;
-        currentQuestion++;
-
-        if (currentQuestion < questions.length) {
-            loadQuestion();
-        } else {
-            showResult();
-        }
-    }
-
-    function showResult() {
-        document.getElementById("quiz").style.display = "none";
-        document.getElementById("result").style.display = "block";
-
-        const winner = Object.keys(scores).reduce((a, b) => scores[a] > scores[b] ? a : b);
-        
-        document.getElementById("member-res").innerText = winner;
-        document.getElementById("member-pic").src = memberData[winner].img;
-        document.getElementById("member-desc").innerText = memberData[winner].desc;
-    }
-
-    loadQuestion();
-</script>
-
-</body>
-</html>
+        { q: "מה התפקיד המועדף עליי
