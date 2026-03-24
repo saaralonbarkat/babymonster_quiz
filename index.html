@@ -44,4 +44,67 @@
 <script>
     const questions = [
         { q: "מה התפקיד המועדף עלייך בלהקה?", options: [{t:"ראפרית עוצמתית", m:"Ahyeon"}, {t:"ווקאליסטית מרגשת", m:"Rora"}, {t:"מכונת ריקודים", m:"Asa"}, {t:"הוויזואלית המתוקה", m:"Chiquita"}] },
-        { q: "איך החברים מתארים אותך?", options: [{t:"מוכשרת בהכל", m:"Ahyeon"}, {t:"ש
+        { q: "איך החברים מתארים אותך?", options: [{t:"מוכשרת בהכל", m:"Ahyeon"}, {t:"שקטה ואלגנטית", m:"Rami"}, {t:"מצחיקה ואנרגטית", m:"Pharita"}, {t:"קולית ומסתורית", m:"Ruka"}] },
+        { q: "מה הסטייל האהוב עלייך?", options: [{t:"סטריט-וור קשוח", m:"Ruka"}, {t:"יוקרתי ועדין", m:"Pharita"}, {t:"נוח ומגניב", m:"Asa"}, {t:"טרנדי ונועז", m:"Chiquita"}] },
+        { q: "מה הכי חשוב לך על הבמה?", options: [{t:"כריזמה ונוכחות", m:"Ahyeon"}, {t:"דיוק בריקוד", m:"Asa"}, {t:"להעביר רגש", m:"Rora"}, {t:"חיוך וביטחון", m:"Rami"}] }
+    ];
+
+    // כאן הקפדתי על סיומת .jpeg ושמות תואמים ל-GitHub שלך
+    const memberData = {
+        "Ahyeon": { img: "ahyeon.jpeg", desc: "את ה-All-Rounder המושלמת! כריזמטית ומוכשרת בהכל." },
+        "Ruka": { img: "ruka.jpeg", desc: "את מגניבה, בוגרת ויש לך נוכחות חזקה שאי אפשר לפספס." },
+        "Chiquita": { img: "chiquita.jpeg", desc: "את מלאה באנרגיה, שמחת חיים וכישרון טבעי מתפרץ!" },
+        "Asa": { img: "asa.jpeg", desc: "את חדה, פרפקציוניסטית ויודעת להשקיע כדי להיות הכי טובה." },
+        "Pharita": { img: "pharita.jpeg", desc: "את אלגנטית, מקסימה ובעלת וייב של נסיכה אמיתית." },
+        "Rora": { img: "rora.jpeg", desc: "את קלאסית, רגועה ומביאה המון עומק ורוגע לכל מקום." },
+        "Rami": { img: "rami.jpeg", desc: "את ווקאליסטית עוצמתית עם אישיות ייחודית וממגנטת!" }
+    };
+
+    let current = 0;
+    let scores = {};
+
+    function initQuiz() {
+        const q = questions[current];
+        const progressEl = document.getElementById("progress");
+        const questionTextEl = document.getElementById("question-text");
+        const optionsContainer = document.getElementById("options-container");
+
+        if (!q) return;
+
+        progressEl.innerText = `שאלה ${current + 1} מתוך ${questions.length}`;
+        questionTextEl.innerText = q.q;
+        optionsContainer.innerHTML = "";
+        
+        q.options.forEach(opt => {
+            const btn = document.createElement("button");
+            btn.innerText = opt.t;
+            btn.onclick = () => {
+                scores[opt.m] = (scores[opt.m] || 0) + 1;
+                current++;
+                if (current < questions.length) {
+                    initQuiz();
+                } else {
+                    showFinalResult();
+                }
+            };
+            optionsContainer.appendChild(btn);
+        });
+    }
+
+    function showFinalResult() {
+        document.getElementById("quiz-screen").style.display = "none";
+        document.getElementById("result").style.display = "block";
+        
+        const winner = Object.keys(scores).reduce((a, b) => scores[a] > scores[b] ? a : b);
+        
+        document.getElementById("member-res").innerText = winner;
+        document.getElementById("member-pic").src = memberData[winner].img;
+        document.getElementById("member-desc").innerText = memberData[winner].desc;
+    }
+
+    // הפעלה ראשונית של השאלון
+    window.onload = initQuiz;
+</script>
+
+</body>
+</html>
