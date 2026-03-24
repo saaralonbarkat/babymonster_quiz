@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>שאלון BABYMONSTER - מי את?</title>
+    <style>
+        :root {
+            --red: #e60012;
+            --black: #1a1a1a;
+            --white: #ffffff;
+            --gray: #f4f4f4;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--black);
+            color: var(--white);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+
+        #quiz-container {
+            background-color: var(--white);
+            color: var(--black);
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(230, 0, 18, 0.3);
+            width: 90%;
+            max-width: 500px;
+            text-align: center;
+        }
+
+        h1 { color: var(--red); margin-bottom: 1rem; }
+        
+        .question { font-size: 1.2rem; margin-bottom: 1.5rem; font-weight: bold; }
+
+        .options { display: grid; gap: 10px; }
+
+        button {
+            background-color: var(--gray);
+            border: 2px solid var(--black);
+            padding: 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+
+        button:hover {
+            background-color: var(--red);
+            color: var(--white);
+            border-color: var(--red);
+        }
+
+        #result { display: none; }
+        .member-name { font-size: 2rem; color: var(--red); font-weight: bold; margin-top: 10px; }
+        
+        .restart-btn {
+            margin-top: 20px;
+            background-color: var(--black);
+            color: var(--white);
+        }
+    </style>
+</head>
+<body>
+
+<div id="quiz-container">
+    <div id="quiz">
+        <h1>BABYMONSTER Quiz</h1>
+        <p id="progress">שאלה 1 מתוך 5</p>
+        <div class="question" id="question-text">טוען שאלה...</div>
+        <div class="options" id="options-container"></div>
+    </div>
+
+    <div id="result">
+        <h1>את הכי דומה ל...</h1>
+        <div class="member-name" id="member-res"></div>
+        <p id="member-desc"></p>
+        <button class="restart-btn" onclick="location.reload()">שחקי שוב!</button>
+    </div>
+</div>
+
+<script>
+    const questions = [
+        {
+            q: "מה התפקיד המועדף עלייך בלהקה?",
+            options: [
+                { text: "ראפרית עוצמתית", member: "Ahyeon" },
+                { text: "ווקאליסטית מרגשת", member: "Rora" },
+                { text: "מכונת ריקודים", member: "Asa" },
+                { text: "הוויזואלית המתוקה", member: "Chiquita" }
+            ]
+        },
+        {
+            q: "איך החברים מתארים אותך?",
+            options: [
+                { text: "פרפקציוניסטית ומוכשרת בהכל", member: "Ahyeon" },
+                { text: "שקטה, אלגנטית וחכמה", member: "Rami" },
+                { text: "מצחיקה ואנרגטית", member: "Pharita" },
+                { text: "קולית ומסתורית", member: "Ruka" }
+            ]
+        },
+        {
+            q: "מה הסטייל האהוב עלייך?",
+            options: [
+                { text: "סטריט-וור (Streetwear) קשוח", member: "Ruka" },
+                { text: "שמלות יוקרתיות ועדינות", member: "Pharita" },
+                { text: "בגדים נוחים אבל מגניבים", member: "Asa" },
+                { text: "טרנדי ונועז", member: "Chiquita" }
+            ]
+        },
+        {
+            q: "מה הדבר שהכי חשוב לך בבמה?",
+            options: [
+                { text: "דיוק בתנועות הריקוד", member: "Asa" },
+                { text: "להעביר רגש בשירה", member: "Rora" },
+                { text: "נוכחות וכריזמה מתפרצת", member: "Ahyeon" },
+                { text: "ביטחון עצמי וחיוך", member: "Rami" }
+            ]
+        },
+        {
+            q: "מה המאכל המועדף עלייך?",
+            options: [
+                { text: "אוכל קוריאני מסורתי", member: "Rora" },
+                { text: "קינוחים ומתוקים", member: "Chiquita" },
+                { text: "סושי או אוכל יפני", member: "Ruka" },
+                { text: "הכל, אני לא בררנית!", member: "Pharita" }
+            ]
+        }
+    ];
+
+    let currentQuestion = 0;
+    let scores = {};
+
+    function loadQuestion() {
+        const qData = questions[currentQuestion];
+        document.getElementById("question-text").innerText = qData.q;
+        document.getElementById("progress").innerText = `שאלה ${currentQuestion + 1} מתוך ${questions.length}`;
+        
+        const optionsDiv = document.getElementById("options-container");
+        optionsDiv.innerHTML = "";
+
+        qData.options.forEach(opt => {
+            const btn = document.createElement("button");
+            btn.innerText = opt.text;
+            btn.onclick = () => nextQuestion(opt.member);
+            optionsDiv.appendChild(btn);
+        });
+    }
+
+    function nextQuestion(member) {
+        scores[member] = (scores[member] || 0) + 1;
+        currentQuestion++;
+
+        if (currentQuestion < questions.length) {
+            loadQuestion();
+        } else {
+            showResult();
+        }
+    }
+
+    const descriptions = {
+        "Ahyeon": "את ה-'All-Rounder'! יש לך כישרון בהכל ואת תמיד מרכז תשומת הלב.",
+        "Ruka": "את מגניבה, בוגרת ויש לך סטייל שאי אפשר להתעלם ממנו.",
+        "Chiquita": "את ה'מאקנה' האנרגטית! את מלאה בשמחת חיים וכישרון טבעי.",
+        "Asa": "את חדה, מוכשרת ויודעת לעבוד קשה כדי להגיע לתוצאה מושלמת.",
+        "Pharita": "את אלגנטית, עדינה ובעלת קול של מלאך.",
+        "Rora": "את קלאסית, רגועה ומביאה המון עומק לכל דבר שאת עושה.",
+        "Rami": "את ווקאליסטית עוצמתית עם אישיות ייחודית וממגנטת."
+    };
+
+    function showResult() {
+        document.getElementById("quiz").style.display = "none";
+        document.getElementById("result").style.display = "block";
+
+        const winner = Object.keys(scores).reduce((a, b) => scores[a] > scores[b] ? a : b);
+        document.getElementById("member-res").innerText = winner;
+        document.getElementById("member-desc").innerText = descriptions[winner] || "את פשוט מדהימה כמו כל הבנות!";
+    }
+
+    loadQuestion();
+</script>
+
+</body>
+</html>
