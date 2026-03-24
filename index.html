@@ -17,7 +17,7 @@
         #result { display: none; }
         .member-img { width: 220px; height: 220px; border-radius: 50%; object-fit: cover; border: 5px solid var(--red); margin: 20px auto; display: block; background-color: #eee; }
         .member-name { font-size: 2.8rem; color: var(--red); font-weight: bold; margin: 10px 0; }
-        .restart-btn { margin-top: 25px; background-color: var(--black); color: white; width: 100%; }
+        .restart-btn { margin-top: 25px; background-color: var(--black); color: white; width: 100%; padding: 15px; border-radius: 10px; cursor: pointer; border: none; font-size: 1rem; font-weight: bold; }
         #progress { font-size: 0.9rem; color: #777; margin-bottom: 10px; }
     </style>
 </head>
@@ -28,7 +28,7 @@
         <div class="main-title">לאיזה ממברית את הכי דומה?</div>
         <div class="author-tag">BY ZOHAR</div>
         <p id="progress"></p>
-        <div class="question" id="question-text">טוען שאלות...</div>
+        <div class="question" id="question-text">טוען שאלון...</div>
         <div class="options" id="options-container"></div>
     </div>
 
@@ -36,7 +36,7 @@
         <h2>את הכי דומה ל...</h2>
         <img id="member-pic" src="" alt="Member" class="member-img">
         <div class="member-name" id="member-res"></div>
-        <p id="member-desc" style="font-size: 1.2rem;"></p>
+        <p id="member-desc" style="font-size: 1.2rem; line-height: 1.4;"></p>
         <button class="restart-btn" onclick="location.reload()">שחקי שוב!</button>
     </div>
 </div>
@@ -44,61 +44,4 @@
 <script>
     const questions = [
         { q: "מה התפקיד המועדף עלייך בלהקה?", options: [{t:"ראפרית עוצמתית", m:"Ahyeon"}, {t:"ווקאליסטית מרגשת", m:"Rora"}, {t:"מכונת ריקודים", m:"Asa"}, {t:"הוויזואלית המתוקה", m:"Chiquita"}] },
-        { q: "איך החברים מתארים אותך?", options: [{t:"מוכשרת בהכל", m:"Ahyeon"}, {t:"שקטה ואלגנטית", m:"Rami"}, {t:"מצחיקה ואנרגטית", m:"Pharita"}, {t:"קולית ומסתורית", m:"Ruka"}] },
-        { q: "מה הסטייל האהוב עלייך?", options: [{t:"סטריט-וור קשוח", m:"Ruka"}, {t:"יוקרתי ועדין", m:"Pharita"}, {t:"נוח ומגניב", m:"Asa"}, {t:"טרנדי ונועז", m:"Chiquita"}] },
-        { q: "מה הכי חשוב לך על הבמה?", options: [{t:"כריזמה ונוכחות", m:"Ahyeon"}, {t:"דיוק בריקוד", m:"Asa"}, {t:"להעביר רגש", m:"Rora"}, {t:"חיוך וביטחון", m:"Rami"}] }
-    ];
-
-    const memberData = {
-        "Ahyeon": { img: "https://i.ibb.co/LdM3Xk7/ahyeon.jpg", desc: "את ה-All-Rounder המושלמת! כריזמטית ומוכשרת בהכל." },
-        "Ruka": { img: "https://i.ibb.co/vXyYm7z/ruka.jpg", desc: "את מגניבה, בוגרת ויש לך נוכחות חזקה שאי אפשר לפספס." },
-        "Chiquita": { img: "https://i.ibb.co/vmbpP8p/chiquita.jpg", desc: "את מלאה באנרגיה, שמחת חיים וכישרון טבעי מתפרץ!" },
-        "Asa": { img: "https://i.ibb.co/W29mRbc/asa.jpg", desc: "את חדה, פרפקציוניסטית ויודעת להשקיע כדי להיות הכי טובה." },
-        "Pharita": { img: "https://i.ibb.co/fM8zY3m/pharita.jpg", desc: "את אלגנטית, מקסימה ובעלת וייב של נסיכה אמיתית." },
-        "Rora": { img: "https://i.ibb.co/jDdbLzG/rora.jpg", desc: "את קלאסית, רגועה ומביאה המון עומק ורוגע לכל מקום." },
-        "Rami": { img: "https://i.ibb.co/m0fXmXj/rami.jpg", desc: "את ווקאליסטית עוצמתית עם אישיות ייחודית וממגנטת!" }
-    };
-
-    let current = 0;
-    let scores = {};
-
-    function initQuiz() {
-        const q = questions[current];
-        document.getElementById("progress").innerText = `שאלה ${current + 1} מתוך ${questions.length}`;
-        document.getElementById("question-text").innerText = q.q;
-        
-        const container = document.getElementById("options-container");
-        container.innerHTML = "";
-        
-        q.options.forEach(opt => {
-            const btn = document.createElement("button");
-            btn.innerText = opt.t;
-            btn.onclick = () => {
-                scores[opt.m] = (scores[opt.m] || 0) + 1;
-                if (++current < questions.length) {
-                    initQuiz();
-                } else {
-                    showFinalResult();
-                }
-            };
-            container.appendChild(btn);
-        });
-    }
-
-    function showFinalResult() {
-        document.getElementById("quiz-screen").style.display = "none";
-        document.getElementById("result").style.display = "block";
-        
-        const winner = Object.keys(scores).reduce((a, b) => scores[a] > scores[b] ? a : b);
-        
-        document.getElementById("member-res").innerText = winner;
-        document.getElementById("member-pic").src = memberData[winner].img;
-        document.getElementById("member-desc").innerText = memberData[winner].desc;
-    }
-
-    // הפעלת השאלון
-    initQuiz();
-</script>
-
-</body>
-</html>
+        { q: "איך החברים מתארים אותך?", options: [{t:"מוכשרת בהכל", m:"Ahyeon"}, {t:"ש
