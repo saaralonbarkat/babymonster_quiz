@@ -62,18 +62,19 @@
         #result { display: none; }
         
         .member-img {
-            width: 200px;
-            height: 200px;
+            width: 220px;
+            height: 220px;
             border-radius: 50%;
             object-fit: cover;
             border: 5px solid var(--red);
             margin: 20px auto;
             display: block;
+            background-color: #eee;
         }
 
-        .member-name { font-size: 2.2rem; color: var(--red); font-weight: bold; margin-top: 10px; }
+        .member-name { font-size: 2.5rem; color: var(--red); font-weight: bold; margin-top: 10px; }
         
-        #member-desc { font-size: 1.1rem; line-height: 1.5; margin: 15px 0; }
+        #member-desc { font-size: 1.2rem; line-height: 1.5; margin: 15px 0; }
 
         .restart-btn {
             margin-top: 20px;
@@ -97,7 +98,7 @@
 
     <div id="result">
         <h1>את הכי דומה ל...</h1>
-        <img id="member-pic" src="" alt="Member Image" class="member-img">
+        <img id="member-pic" src="" alt="Member" class="member-img">
         <div class="member-name" id="member-res"></div>
         <p id="member-desc"></p>
         <button class="restart-btn" onclick="location.reload()">שחקי שוב!</button>
@@ -155,31 +156,31 @@
 
     const memberData = {
         "Ahyeon": {
-            img: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/240523_Ahyeon.jpg/640px-240523_Ahyeon.jpg",
+            img: "https://dbkpop.com/wp-content/uploads/2023/01/babymonster_ahyeon_profile.jpg",
             desc: "את ה-'All-Rounder'! יש לך כישרון בהכל ואת תמיד מרכז תשומת הלב."
         },
         "Ruka": {
-            img: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ef/240510_Ruka.jpg/640px-240510_Ruka.jpg",
+            img: "https://dbkpop.com/wp-content/uploads/2023/02/babymonster_ruka_profile.jpg",
             desc: "את מגניבה, בוגרת ויש לך סטייל שאי אפשר להתעלם ממנו."
         },
         "Chiquita": {
-            img: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b5/240510_Chiquita.jpg/640px-240510_Chiquita.jpg",
+            img: "https://dbkpop.com/wp-content/uploads/2023/01/babymonster_chiquita_profile.jpg",
             desc: "את ה'מאקנה' האנרגטית! את מלאה בשמחת חיים וכישרון טבעי."
         },
         "Asa": {
-            img: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/240510_Asa.jpg/640px-240510_Asa.jpg",
+            img: "https://dbkpop.com/wp-content/uploads/2023/01/babymonster_asa_profile.jpg",
             desc: "את חדה, מוכשרת ויודעת לעבוד קשה כדי להגיע לתוצאה מושלמת."
         },
         "Pharita": {
-            img: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d5/240523_Pharita.jpg/640px-240523_Pharita.jpg",
+            img: "https://dbkpop.com/wp-content/uploads/2023/02/babymonster_pharita_profile.jpg",
             desc: "את אלגנטית, עדינה ובעלת קול של מלאך."
         },
         "Rora": {
-            img: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/240510_Rora.jpg/640px-240510_Rora.jpg",
+            img: "https://dbkpop.com/wp-content/uploads/2023/01/babymonster_rora_profile.jpg",
             desc: "את קלאסית, רגועה ומביאה המון עומק לכל דבר שאת עושה."
         },
         "Rami": {
-            img: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/14/240523_Rami.jpg/640px-240523_Rami.jpg",
+            img: "https://dbkpop.com/wp-content/uploads/2023/01/babymonster_rami_profile.jpg",
             desc: "את ווקאליסטית עוצמתית עם אישיות ייחודית וממגנטת."
         }
     };
